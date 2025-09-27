@@ -38,20 +38,31 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # 3rd-Party
     'rest_framework',
     'corsheaders',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
     # Local
     'accounts.apps.AccountsConfig',
     'inventory.apps.InventoryConfig',
 ]
 
-REST_FRAMEWORK = { # new
- "DEFAULT_PERMISSION_CLASSES": [
- "rest_framework.permissions.AllowAny",
-],
+REST_FRAMEWORK = { 
+    "DEFAULT_PERMISSION_CLASSES": [
+    "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ]
 }
 
 CORS_ORIGIN_WHITELIST = (
@@ -59,6 +70,7 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 MIDDLEWARE = [
+    # Django
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,6 +78,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 3rd Party
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'e_commerce.urls'
@@ -80,10 +95,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+SITE_ID = 1
 
 WSGI_APPLICATION = 'e_commerce.wsgi.application'
 

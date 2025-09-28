@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # Local
     'accounts.apps.AccountsConfig',
     'inventory.apps.InventoryConfig',
+    'order.apps.OrderConfig',
 ]
 
 REST_FRAMEWORK = { 

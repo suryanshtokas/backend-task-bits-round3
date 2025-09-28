@@ -1,2 +1,9 @@
 .venv/
-__pychache__/
+accounts/__pychache__/
+accounts/migrations/
+e_commerce/__pychache__/
+e_commerce/migrations/
+inventory/__pychache__/
+inventory/migrations/
+order/__pychache__/
+order/migrations/
